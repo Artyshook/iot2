@@ -1,0 +1,14 @@
+{
+    "name": "node-red-project",
+    "description": "A Node-RED Project",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "node-red-contrib-cron-plus": "^1.5.7",
+        "node-red-contrib-loop": "^1.0.1",
+        "node-red-contrib-reusable-flows": "^1.0.0",
+        "node-red-contrib-sqlitedb": "^1.5.1",
+        "node-red-dashboard": "^3.3.1",
+        "node-red-node-sqlite": "^1.0.3"
+    }
+}

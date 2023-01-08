@@ -1,0 +1,2371 @@
+[
+    {
+        "id": "b2e7aeebd2100c91",
+        "type": "tab",
+        "label": "Backend",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "afcea9b4a0f9be7e",
+        "type": "http in",
+        "z": "b2e7aeebd2100c91",
+        "name": "Insert From node",
+        "url": "/api/backend/insert",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 120,
+        "y": 320,
+        "wires": [
+            [
+                "625ee3f8c8172094",
+                "a59a85459fcea564"
+            ]
+        ]
+    },
+    {
+        "id": "67e043bec88b6edd",
+        "type": "inject",
+        "z": "b2e7aeebd2100c91",
+        "name": "Create Database",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "CREATE TABLE \"Sensors\" (     \"id\"    INTEGER NOT NULL UNIQUE,     \"node_code\" TEXT NOT NULL,     \"gateway_code\"  TEXT NOT NULL,     \"sensor_code\"   TEXT NOT NULL,     \"value\" INTEGER NOT NULL,     \"timestamp\" INTEGER NOT NULL,     PRIMARY KEY(\"id\") );",
+        "payload": "",
+        "payloadType": "str",
+        "x": 140,
+        "y": 120,
+        "wires": [
+            [
+                "e4b1a0b1fa8e8f31"
+            ]
+        ]
+    },
+    {
+        "id": "ef730cfc6d3d4497",
+        "type": "debug",
+        "z": "b2e7aeebd2100c91",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "136083fa132916dc",
+        "type": "inject",
+        "z": "b2e7aeebd2100c91",
+        "name": "Empty Database",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "DELETE FROM \"main\".\"Sensors\"",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 180,
+        "wires": [
+            [
+                "6f9e8e52bd222ff2"
+            ]
+        ]
+    },
+    {
+        "id": "3d5e160ecdad6d95",
+        "type": "debug",
+        "z": "b2e7aeebd2100c91",
+        "name": "debug 10",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "d789639e19c3ec6d",
+        "type": "http response",
+        "z": "b2e7aeebd2100c91",
+        "name": "Result",
+        "statusCode": "",
+        "headers": {},
+        "x": 930,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "55a0714547971646",
+        "type": "change",
+        "z": "b2e7aeebd2100c91",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "200",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 700,
+        "y": 320,
+        "wires": [
+            [
+                "d789639e19c3ec6d"
+            ]
+        ]
+    },
+    {
+        "id": "f6fbe553d02de3f8",
+        "type": "inject",
+        "z": "b2e7aeebd2100c91",
+        "name": "Start select",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 120,
+        "y": 640,
+        "wires": [
+            [
+                "4b341a0b09d71dfe"
+            ]
+        ]
+    },
+    {
+        "id": "7aab0c1e4dc5160b",
+        "type": "debug",
+        "z": "b2e7aeebd2100c91",
+        "name": "debug 12",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "4b341a0b09d71dfe",
+        "type": "function",
+        "z": "b2e7aeebd2100c91",
+        "name": "params",
+        "func": "msg.topic = 'SELECT * FROM \"main\".\"Sensors\" WHERE \"id\"=1;'\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 640,
+        "wires": [
+            [
+                "860a36dfd11517ff"
+            ]
+        ]
+    },
+    {
+        "id": "b68ae96b33654a1f",
+        "type": "comment",
+        "z": "b2e7aeebd2100c91",
+        "name": "Setup",
+        "info": "# Setup scripts",
+        "x": 90,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "ba7fa4ec0bf0888f",
+        "type": "comment",
+        "z": "b2e7aeebd2100c91",
+        "name": "API",
+        "info": "# API for gateway \nInserting data",
+        "x": 90,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "f4881ed9921722e6",
+        "type": "comment",
+        "z": "b2e7aeebd2100c91",
+        "name": "Example select",
+        "info": "# Select data example\nSelecting data",
+        "x": 100,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "625ee3f8c8172094",
+        "type": "function",
+        "z": "b2e7aeebd2100c91",
+        "name": "params",
+        "func": "msg.params = {\n    $id: msg.payload.id,\n    $node_code: msg.payload.node_code,\n    $gateway_code: msg.payload.gateway_code,\n    $sensor_code: msg.payload.sensor_code,\n    $value: msg.payload.value,\n    $timestamp: msg.payload.timestamp,\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 320,
+        "wires": [
+            [
+                "24e371ca9f88bd0e",
+                "9487d3cda22e25c7"
+            ]
+        ]
+    },
+    {
+        "id": "e4b1a0b1fa8e8f31",
+        "type": "sqlite",
+        "z": "b2e7aeebd2100c91",
+        "mydb": "6e816e60016b6759",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "backend_db",
+        "x": 350,
+        "y": 120,
+        "wires": [
+            [
+                "ef730cfc6d3d4497"
+            ]
+        ]
+    },
+    {
+        "id": "6f9e8e52bd222ff2",
+        "type": "sqlite",
+        "z": "b2e7aeebd2100c91",
+        "mydb": "6e816e60016b6759",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "backend_db",
+        "x": 370,
+        "y": 180,
+        "wires": [
+            [
+                "3d5e160ecdad6d95"
+            ]
+        ]
+    },
+    {
+        "id": "860a36dfd11517ff",
+        "type": "sqlite",
+        "z": "b2e7aeebd2100c91",
+        "mydb": "4b73790fdb402582",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "SELECT",
+        "x": 480,
+        "y": 640,
+        "wires": [
+            [
+                "7aab0c1e4dc5160b"
+            ]
+        ]
+    },
+    {
+        "id": "24e371ca9f88bd0e",
+        "type": "sqlite",
+        "z": "b2e7aeebd2100c91",
+        "mydb": "4b73790fdb402582",
+        "sqlquery": "prepared",
+        "sql": "INSERT INTO \"main\".\"Sensors\"(\"id\",\"node_code\",\"gateway_code\",\"sensor_code\",\"value\",\"timestamp\") VALUES ($id, $node_code, $gateway_code, $sensor_code, $value, $timestamp);",
+        "name": "Insert",
+        "x": 510,
+        "y": 320,
+        "wires": [
+            [
+                "55a0714547971646"
+            ]
+        ]
+    },
+    {
+        "id": "7f9315fa85ed7b78",
+        "type": "ui_gauge",
+        "z": "b2e7aeebd2100c91",
+        "name": "Temp",
+        "group": "fafeeadb169d5d3c",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "",
+        "label": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 1170,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "00d482a1bba51382",
+        "type": "ui_gauge",
+        "z": "b2e7aeebd2100c91",
+        "name": "Pressure",
+        "group": "aeb1e281b1147c79",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "wave",
+        "title": "",
+        "label": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "150000",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 1180,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "2f13b95b294a7a69",
+        "type": "ui_gauge",
+        "z": "b2e7aeebd2100c91",
+        "name": "Illuminance",
+        "group": "5ab86365332fbfbb",
+        "order": 1,
+        "width": "7",
+        "height": "5",
+        "gtype": "donut",
+        "title": "",
+        "label": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "150",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 1190,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "902618767ac1c31f",
+        "type": "ui_text",
+        "z": "b2e7aeebd2100c91",
+        "group": "fc3e994ce818a4c3",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Altitude",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1180,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "ae5944b3e04842fe",
+        "type": "ui_gauge",
+        "z": "b2e7aeebd2100c91",
+        "name": "relative-humidity",
+        "group": "c35003402e06243d",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "",
+        "label": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 1200,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "610eadffa2ed448f",
+        "type": "ui_gauge",
+        "z": "b2e7aeebd2100c91",
+        "name": "Concentration",
+        "group": "209bbaf51b3a75c1",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "wave",
+        "title": "",
+        "label": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "1000",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 1200,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "4298e7757bd2ba54",
+        "type": "link out",
+        "z": "b2e7aeebd2100c91",
+        "name": "link out 7",
+        "mode": "link",
+        "links": [
+            "6678275ab70ab8a1",
+            "442b20b905124ae7"
+        ],
+        "x": 1325,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "0eceb0a94088b0b0",
+        "type": "link out",
+        "z": "b2e7aeebd2100c91",
+        "name": "link out 8",
+        "mode": "link",
+        "links": [
+            "82902e66a894f522",
+            "7f1ecad148dee83f"
+        ],
+        "x": 1325,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "04050b954bfd7d97",
+        "type": "link out",
+        "z": "b2e7aeebd2100c91",
+        "name": "link out 9",
+        "mode": "link",
+        "links": [
+            "e9142becc0fa6f1b",
+            "6d85620e959a7812"
+        ],
+        "x": 1325,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "98a48a8a348f3e47",
+        "type": "link out",
+        "z": "b2e7aeebd2100c91",
+        "name": "link out 10",
+        "mode": "link",
+        "links": [
+            "5c11effe9112d392",
+            "7917494357954e80"
+        ],
+        "x": 1325,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "527fb26a89492559",
+        "type": "link out",
+        "z": "b2e7aeebd2100c91",
+        "name": "link out 11",
+        "mode": "link",
+        "links": [
+            "76b274a720d1aea6",
+            "177a618dee4aade7"
+        ],
+        "x": 1325,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "1cb8a1072f38eb1d",
+        "type": "link out",
+        "z": "b2e7aeebd2100c91",
+        "name": "link out 12",
+        "mode": "link",
+        "links": [
+            "ba207e723767c130",
+            "d1281babc2ea396d",
+            "cfe074900d1e7050"
+        ],
+        "x": 1325,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "9487d3cda22e25c7",
+        "type": "switch",
+        "z": "b2e7aeebd2100c91",
+        "name": "",
+        "property": "payload.sensor_code",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "temperature",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "pressure",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "illuminance",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "altitude",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "relative-humidity",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "concentration",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 6,
+        "x": 750,
+        "y": 220,
+        "wires": [
+            [
+                "52f7001a6d18510c"
+            ],
+            [
+                "b7fbc90dcb58413a"
+            ],
+            [
+                "1b96c885a084d047"
+            ],
+            [
+                "abbc18c7b49099fb"
+            ],
+            [
+                "c92d6e7217dcf74b"
+            ],
+            [
+                "c89568ba58551f5f",
+                "610eadffa2ed448f"
+            ]
+        ]
+    },
+    {
+        "id": "52f7001a6d18510c",
+        "type": "change",
+        "z": "b2e7aeebd2100c91",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.value",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1000,
+        "y": 80,
+        "wires": [
+            [
+                "7f9315fa85ed7b78",
+                "4298e7757bd2ba54"
+            ]
+        ]
+    },
+    {
+        "id": "b7fbc90dcb58413a",
+        "type": "change",
+        "z": "b2e7aeebd2100c91",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.value",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1000,
+        "y": 120,
+        "wires": [
+            [
+                "00d482a1bba51382",
+                "0eceb0a94088b0b0"
+            ]
+        ]
+    },
+    {
+        "id": "1b96c885a084d047",
+        "type": "change",
+        "z": "b2e7aeebd2100c91",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.value",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1000,
+        "y": 160,
+        "wires": [
+            [
+                "2f13b95b294a7a69",
+                "98a48a8a348f3e47"
+            ]
+        ]
+    },
+    {
+        "id": "abbc18c7b49099fb",
+        "type": "change",
+        "z": "b2e7aeebd2100c91",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.value",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1000,
+        "y": 200,
+        "wires": [
+            [
+                "527fb26a89492559"
+            ]
+        ]
+    },
+    {
+        "id": "c92d6e7217dcf74b",
+        "type": "change",
+        "z": "b2e7aeebd2100c91",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.value",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1000,
+        "y": 240,
+        "wires": [
+            [
+                "04050b954bfd7d97"
+            ]
+        ]
+    },
+    {
+        "id": "c89568ba58551f5f",
+        "type": "change",
+        "z": "b2e7aeebd2100c91",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.value",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1000,
+        "y": 280,
+        "wires": [
+            [
+                "1cb8a1072f38eb1d"
+            ]
+        ]
+    },
+    {
+        "id": "8e35a54a8c82402b",
+        "type": "ui_dropdown",
+        "z": "b2e7aeebd2100c91",
+        "name": "",
+        "label": "Duration",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "fafeeadb169d5d3c",
+        "order": 2,
+        "width": "0",
+        "height": "0",
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "5 min",
+                "value": 5,
+                "type": "num"
+            },
+            {
+                "label": "30 min",
+                "value": 30,
+                "type": "num"
+            },
+            {
+                "label": "1 hours",
+                "value": 60,
+                "type": "num"
+            },
+            {
+                "label": "5 hours",
+                "value": 300,
+                "type": "num"
+            },
+            {
+                "label": "1 day",
+                "value": 1440,
+                "type": "num"
+            },
+            {
+                "label": "1 week",
+                "value": 10080,
+                "type": "num"
+            }
+        ],
+        "payload": "",
+        "topic": "time",
+        "topicType": "str",
+        "className": "",
+        "x": 120,
+        "y": 780,
+        "wires": [
+            [
+                "ac57b81ecf3d4931"
+            ]
+        ]
+    },
+    {
+        "id": "900c82a41a5f99a8",
+        "type": "function",
+        "z": "b2e7aeebd2100c91",
+        "name": "Format chart",
+        "func": "var x = flow.get('chartprops_temp').xaxis.min; //time back in milliseconds\nvar d = new Date().getTime() - x //current time in milliseconds - desired time\ndelete msg.payload;\ndelete msg.topic;\n\n//send all modification in one go\nmsg.ui_control = { \n    options: {\n        scales: {\n            xAxes: [{\n                type: 'time',\n                time: {\n                    min: d\n                }\n            }]\n            \n        }\n    }\n}\nreturn msg; \n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 780,
+        "wires": [
+            [
+                "1f0b7c55528f5148"
+            ]
+        ]
+    },
+    {
+        "id": "f2266ae19448ca9b",
+        "type": "inject",
+        "z": "b2e7aeebd2100c91",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 1520,
+        "wires": [
+            [
+                "8957c39199b8e4cc"
+            ]
+        ]
+    },
+    {
+        "id": "8957c39199b8e4cc",
+        "type": "function",
+        "z": "b2e7aeebd2100c91",
+        "name": "init chart options in flow",
+        "func": "var chartprops_temp = flow.get('chartprops_temp') || {}\nvar chartprops_pressure = flow.get('chartprops_pressure') || {}\nvar chartprops_hum = flow.get('chartprops_hum') || {}\nvar chartprops_alt = flow.get('chartprops_alt') || {}\nvar chartprops_con = flow.get('chartprops_con') || {}\nvar chartprops_ill = flow.get('chartprops_ill') || {}\n// set same values as in chart configuration\nchartprops_temp.xaxis = {min:3600000}//time frame\nflow.set('chartprops_temp', chartprops_temp)\nchartprops_pressure.xaxis = { min: 3600000 }//time frame\nflow.set('chartprops_pressure', chartprops_pressure)\nchartprops_hum.xaxis = { min: 3600000 }//time frame\nflow.set('chartprops_hum', chartprops_hum)\nchartprops_alt.xaxis = { min: 3600000 }//time frame\nflow.set('chartprops_alt', chartprops_alt)\nchartprops_con.xaxis = { min: 3600000 }//time frame\nflow.set('chartprops_con', chartprops_con)\nchartprops_ill.xaxis = { min: 3600000 }//time frame\nflow.set('chartprops_ill', chartprops_ill)",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 1520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ac57b81ecf3d4931",
+        "type": "function",
+        "z": "b2e7aeebd2100c91",
+        "name": "Store chart options",
+        "func": "var chartprops_temp = flow.get('chartprops_temp')\nchartprops_temp.xaxis.min = msg.payload * 60000\n\nflow.set('chartprops_temp', chartprops_temp)\n// message continues to flow but in next node properties will be deleted\n// it will be used only as change event\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 780,
+        "wires": [
+            [
+                "900c82a41a5f99a8"
+            ]
+        ]
+    },
+    {
+        "id": "dedc2345f846b4aa",
+        "type": "inject",
+        "z": "b2e7aeebd2100c91",
+        "name": "Resend chart format",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 380,
+        "y": 840,
+        "wires": [
+            [
+                "900c82a41a5f99a8"
+            ]
+        ]
+    },
+    {
+        "id": "c1b517e36075635f",
+        "type": "comment",
+        "z": "b2e7aeebd2100c91",
+        "name": "Resend - read comments !",
+        "info": "If minimum time is sent to chart, it will be absolute\nChart does not take it as time frame\nSo if change is in minutes, it is reasonable enough\nto send new min value to chart in every minute\nto hold time frame constant",
+        "x": 130,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "6678275ab70ab8a1",
+        "type": "link in",
+        "z": "b2e7aeebd2100c91",
+        "name": "link in 7",
+        "links": [
+            "4298e7757bd2ba54"
+        ],
+        "x": 755,
+        "y": 720,
+        "wires": [
+            [
+                "1f0b7c55528f5148"
+            ]
+        ]
+    },
+    {
+        "id": "98f47e17ea3c9b75",
+        "type": "ui_dropdown",
+        "z": "b2e7aeebd2100c91",
+        "name": "",
+        "label": "Duration",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "aeb1e281b1147c79",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "5 min",
+                "value": 5,
+                "type": "num"
+            },
+            {
+                "label": "30 min",
+                "value": 30,
+                "type": "num"
+            },
+            {
+                "label": "1 hours",
+                "value": 60,
+                "type": "num"
+            },
+            {
+                "label": "5 hours",
+                "value": 300,
+                "type": "num"
+            },
+            {
+                "label": "1 day",
+                "value": 1440,
+                "type": "num"
+            },
+            {
+                "label": "1 week",
+                "value": 10080,
+                "type": "num"
+            }
+        ],
+        "payload": "",
+        "topic": "time",
+        "topicType": "str",
+        "className": "",
+        "x": 120,
+        "y": 900,
+        "wires": [
+            [
+                "c72c5b18e2bb2005"
+            ]
+        ]
+    },
+    {
+        "id": "43a66d0bd160d019",
+        "type": "ui_chart",
+        "z": "b2e7aeebd2100c91",
+        "name": "",
+        "group": "aeb1e281b1147c79",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "label": "chart_pressure",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "auto",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "604800",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#ec3427",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 940,
+        "y": 900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "83d4c69c412a0a3d",
+        "type": "function",
+        "z": "b2e7aeebd2100c91",
+        "name": "Format chart",
+        "func": "var x = flow.get('chartprops_pressure').xaxis.min; //time back in milliseconds\nvar d = new Date().getTime() - x //current time in milliseconds - desired time\ndelete msg.payload;\ndelete msg.topic;\n\n//send all modification in one go\nmsg.ui_control = { \n    options: {\n        scales: {\n            xAxes: [{\n                type: 'time',\n                time: {\n                    min: d\n                }\n            }]\n            \n        }\n    }\n}\nreturn msg; \n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 900,
+        "wires": [
+            [
+                "43a66d0bd160d019"
+            ]
+        ]
+    },
+    {
+        "id": "c72c5b18e2bb2005",
+        "type": "function",
+        "z": "b2e7aeebd2100c91",
+        "name": "Store chart options",
+        "func": "var chartprops_pressure = flow.get('chartprops_pressure')\nchartprops_pressure.xaxis.min = msg.payload * 60000\n\nflow.set('chartprops_pressure', chartprops_pressure)\n// message continues to flow but in next node properties will be deleted\n// it will be used only as change event\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 900,
+        "wires": [
+            [
+                "83d4c69c412a0a3d"
+            ]
+        ]
+    },
+    {
+        "id": "7442f8ec84f2d793",
+        "type": "inject",
+        "z": "b2e7aeebd2100c91",
+        "name": "Resend chart format",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 380,
+        "y": 960,
+        "wires": [
+            [
+                "83d4c69c412a0a3d"
+            ]
+        ]
+    },
+    {
+        "id": "a22560f2569f79a3",
+        "type": "comment",
+        "z": "b2e7aeebd2100c91",
+        "name": "Resend - read comments !",
+        "info": "If minimum time is sent to chart, it will be absolute\nChart does not take it as time frame\nSo if change is in minutes, it is reasonable enough\nto send new min value to chart in every minute\nto hold time frame constant",
+        "x": 130,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "b670cdd98f659b30",
+        "type": "ui_dropdown",
+        "z": "b2e7aeebd2100c91",
+        "name": "",
+        "label": "Duration",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "c35003402e06243d",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "5 min",
+                "value": 5,
+                "type": "num"
+            },
+            {
+                "label": "30 min",
+                "value": 30,
+                "type": "num"
+            },
+            {
+                "label": "1 hours",
+                "value": 60,
+                "type": "num"
+            },
+            {
+                "label": "5 hours",
+                "value": 300,
+                "type": "num"
+            },
+            {
+                "label": "1 day",
+                "value": 1440,
+                "type": "num"
+            },
+            {
+                "label": "1 week",
+                "value": 10080,
+                "type": "num"
+            }
+        ],
+        "payload": "",
+        "topic": "time",
+        "topicType": "str",
+        "className": "",
+        "x": 120,
+        "y": 1020,
+        "wires": [
+            [
+                "0b227906ef1db222"
+            ]
+        ]
+    },
+    {
+        "id": "bc1c5f1edb369968",
+        "type": "ui_chart",
+        "z": "b2e7aeebd2100c91",
+        "name": "",
+        "group": "c35003402e06243d",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "label": "chart_r-humidity",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "auto",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "604800",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#ec3427",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 940,
+        "y": 1020,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7859c878959d538c",
+        "type": "function",
+        "z": "b2e7aeebd2100c91",
+        "name": "Format chart",
+        "func": "var x = flow.get('chartprops_hum').xaxis.min; //time back in milliseconds\nvar d = new Date().getTime() - x //current time in milliseconds - desired time\ndelete msg.payload;\ndelete msg.topic;\n\n//send all modification in one go\nmsg.ui_control = { \n    options: {\n        scales: {\n            xAxes: [{\n                type: 'time',\n                time: {\n                    min: d\n                }\n            }]\n            \n        }\n    }\n}\nreturn msg; \n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 1020,
+        "wires": [
+            [
+                "bc1c5f1edb369968"
+            ]
+        ]
+    },
+    {
+        "id": "0b227906ef1db222",
+        "type": "function",
+        "z": "b2e7aeebd2100c91",
+        "name": "Store chart options",
+        "func": "var chartprops_hum = flow.get('chartprops_hum')\nchartprops_hum.xaxis.min = msg.payload * 60000\n\nflow.set('chartprops_hum', chartprops_hum)\n// message continues to flow but in next node properties will be deleted\n// it will be used only as change event\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 1020,
+        "wires": [
+            [
+                "7859c878959d538c"
+            ]
+        ]
+    },
+    {
+        "id": "de098d1fa3d4bb16",
+        "type": "inject",
+        "z": "b2e7aeebd2100c91",
+        "name": "Resend chart format",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 380,
+        "y": 1080,
+        "wires": [
+            [
+                "7859c878959d538c"
+            ]
+        ]
+    },
+    {
+        "id": "01d926e29a77abfd",
+        "type": "comment",
+        "z": "b2e7aeebd2100c91",
+        "name": "Resend - read comments !",
+        "info": "If minimum time is sent to chart, it will be absolute\nChart does not take it as time frame\nSo if change is in minutes, it is reasonable enough\nto send new min value to chart in every minute\nto hold time frame constant",
+        "x": 130,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "82902e66a894f522",
+        "type": "link in",
+        "z": "b2e7aeebd2100c91",
+        "name": "link in 8",
+        "links": [
+            "0eceb0a94088b0b0"
+        ],
+        "x": 765,
+        "y": 840,
+        "wires": [
+            [
+                "43a66d0bd160d019"
+            ]
+        ]
+    },
+    {
+        "id": "e9142becc0fa6f1b",
+        "type": "link in",
+        "z": "b2e7aeebd2100c91",
+        "name": "link in 9",
+        "links": [
+            "04050b954bfd7d97"
+        ],
+        "x": 775,
+        "y": 940,
+        "wires": [
+            [
+                "bc1c5f1edb369968"
+            ]
+        ]
+    },
+    {
+        "id": "a292de73cd36a5c2",
+        "type": "ui_dropdown",
+        "z": "b2e7aeebd2100c91",
+        "name": "",
+        "label": "Duration",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "fc3e994ce818a4c3",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "5 min",
+                "value": 5,
+                "type": "num"
+            },
+            {
+                "label": "30 min",
+                "value": 30,
+                "type": "num"
+            },
+            {
+                "label": "1 hours",
+                "value": 60,
+                "type": "num"
+            },
+            {
+                "label": "5 hours",
+                "value": 300,
+                "type": "num"
+            },
+            {
+                "label": "1 day",
+                "value": 1440,
+                "type": "num"
+            },
+            {
+                "label": "1 week",
+                "value": 10080,
+                "type": "num"
+            }
+        ],
+        "payload": "",
+        "topic": "time",
+        "topicType": "str",
+        "className": "",
+        "x": 120,
+        "y": 1140,
+        "wires": [
+            [
+                "3dce775e4cf408c3"
+            ]
+        ]
+    },
+    {
+        "id": "1cf884589e1fb85d",
+        "type": "ui_chart",
+        "z": "b2e7aeebd2100c91",
+        "name": "",
+        "group": "fc3e994ce818a4c3",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "label": "chart_altitude",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "auto",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "604800",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#ec3427",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 940,
+        "y": 1140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1625a609e3d5091d",
+        "type": "function",
+        "z": "b2e7aeebd2100c91",
+        "name": "Format chart",
+        "func": "var x = flow.get('chartprops_alt').xaxis.min; //time back in milliseconds\nvar d = new Date().getTime() - x //current time in milliseconds - desired time\ndelete msg.payload;\ndelete msg.topic;\n\n//send all modification in one go\nmsg.ui_control = { \n    options: {\n        scales: {\n            xAxes: [{\n                type: 'time',\n                time: {\n                    min: d\n                }\n            }]\n            \n        }\n    }\n}\nreturn msg; \n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 1140,
+        "wires": [
+            [
+                "1cf884589e1fb85d"
+            ]
+        ]
+    },
+    {
+        "id": "3dce775e4cf408c3",
+        "type": "function",
+        "z": "b2e7aeebd2100c91",
+        "name": "Store chart options",
+        "func": "var chartprops_alt = flow.get('chartprops_alt')\nchartprops_alt.xaxis.min = msg.payload * 60000\n\nflow.set('chartprops_alt', chartprops_alt)\n// message continues to flow but in next node properties will be deleted\n// it will be used only as change event\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 1140,
+        "wires": [
+            [
+                "1625a609e3d5091d"
+            ]
+        ]
+    },
+    {
+        "id": "ed4cfe1dbd60b985",
+        "type": "inject",
+        "z": "b2e7aeebd2100c91",
+        "name": "Resend chart format",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 380,
+        "y": 1200,
+        "wires": [
+            [
+                "1625a609e3d5091d"
+            ]
+        ]
+    },
+    {
+        "id": "6085cbddb98a5079",
+        "type": "comment",
+        "z": "b2e7aeebd2100c91",
+        "name": "Resend - read comments !",
+        "info": "If minimum time is sent to chart, it will be absolute\nChart does not take it as time frame\nSo if change is in minutes, it is reasonable enough\nto send new min value to chart in every minute\nto hold time frame constant",
+        "x": 130,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "b15233eb11860106",
+        "type": "ui_dropdown",
+        "z": "b2e7aeebd2100c91",
+        "name": "",
+        "label": "Duration",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "209bbaf51b3a75c1",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "5 min",
+                "value": 5,
+                "type": "num"
+            },
+            {
+                "label": "30 min",
+                "value": 30,
+                "type": "num"
+            },
+            {
+                "label": "1 hours",
+                "value": 60,
+                "type": "num"
+            },
+            {
+                "label": "5 hours",
+                "value": 300,
+                "type": "num"
+            },
+            {
+                "label": "1 day",
+                "value": 1440,
+                "type": "num"
+            },
+            {
+                "label": "1 week",
+                "value": 10080,
+                "type": "num"
+            }
+        ],
+        "payload": "",
+        "topic": "time",
+        "topicType": "str",
+        "className": "",
+        "x": 120,
+        "y": 1240,
+        "wires": [
+            [
+                "2b7b9a59fbbf2b56"
+            ]
+        ]
+    },
+    {
+        "id": "84119a8ec7761137",
+        "type": "ui_chart",
+        "z": "b2e7aeebd2100c91",
+        "name": "",
+        "group": "209bbaf51b3a75c1",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "label": "chart_concentration",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "auto",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "604800",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#ec3427",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 950,
+        "y": 1240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "43452fd1da6c1040",
+        "type": "function",
+        "z": "b2e7aeebd2100c91",
+        "name": "Format chart",
+        "func": "var x = flow.get('chartprops_con').xaxis.min; //time back in milliseconds\nvar d = new Date().getTime() - x //current time in milliseconds - desired time\ndelete msg.payload;\ndelete msg.topic;\n\n//send all modification in one go\nmsg.ui_control = { \n    options: {\n        scales: {\n            xAxes: [{\n                type: 'time',\n                time: {\n                    min: d\n                }\n            }]\n            \n        }\n    }\n}\nreturn msg; \n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 1240,
+        "wires": [
+            [
+                "84119a8ec7761137"
+            ]
+        ]
+    },
+    {
+        "id": "2b7b9a59fbbf2b56",
+        "type": "function",
+        "z": "b2e7aeebd2100c91",
+        "name": "Store chart options",
+        "func": "var chartprops_con = flow.get('chartprops_con')\nchartprops_con.xaxis.min = msg.payload * 60000\n\nflow.set('chartprops_con', chartprops_con)\n// message continues to flow but in next node properties will be deleted\n// it will be used only as change event\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 1240,
+        "wires": [
+            [
+                "43452fd1da6c1040"
+            ]
+        ]
+    },
+    {
+        "id": "41e6519c6e2c41f9",
+        "type": "inject",
+        "z": "b2e7aeebd2100c91",
+        "name": "Resend chart format",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 380,
+        "y": 1300,
+        "wires": [
+            [
+                "43452fd1da6c1040"
+            ]
+        ]
+    },
+    {
+        "id": "6ae684c978998d41",
+        "type": "comment",
+        "z": "b2e7aeebd2100c91",
+        "name": "Resend - read comments !",
+        "info": "If minimum time is sent to chart, it will be absolute\nChart does not take it as time frame\nSo if change is in minutes, it is reasonable enough\nto send new min value to chart in every minute\nto hold time frame constant",
+        "x": 130,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "56400a393ff3aee4",
+        "type": "ui_dropdown",
+        "z": "b2e7aeebd2100c91",
+        "name": "",
+        "label": "Duration",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "5ab86365332fbfbb",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "5 min",
+                "value": 5,
+                "type": "num"
+            },
+            {
+                "label": "30 min",
+                "value": 30,
+                "type": "num"
+            },
+            {
+                "label": "1 hours",
+                "value": 60,
+                "type": "num"
+            },
+            {
+                "label": "5 hours",
+                "value": 300,
+                "type": "num"
+            },
+            {
+                "label": "1 day",
+                "value": 1440,
+                "type": "num"
+            },
+            {
+                "label": "1 week",
+                "value": 10080,
+                "type": "num"
+            }
+        ],
+        "payload": "",
+        "topic": "time",
+        "topicType": "str",
+        "className": "",
+        "x": 120,
+        "y": 1360,
+        "wires": [
+            [
+                "33f6b878d2537af6"
+            ]
+        ]
+    },
+    {
+        "id": "831317f409cfe543",
+        "type": "ui_chart",
+        "z": "b2e7aeebd2100c91",
+        "name": "",
+        "group": "5ab86365332fbfbb",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "label": "chart_illuminance",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "auto",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "604800",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#ec3427",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 950,
+        "y": 1360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c830fb1525157cde",
+        "type": "function",
+        "z": "b2e7aeebd2100c91",
+        "name": "Format chart",
+        "func": "var x = flow.get('chartprops_ill').xaxis.min; //time back in milliseconds\nvar d = new Date().getTime() - x //current time in milliseconds - desired time\ndelete msg.payload;\ndelete msg.topic;\n\n//send all modification in one go\nmsg.ui_control = { \n    options: {\n        scales: {\n            xAxes: [{\n                type: 'time',\n                time: {\n                    min: d\n                }\n            }]\n            \n        }\n    }\n}\nreturn msg; \n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 1360,
+        "wires": [
+            [
+                "831317f409cfe543"
+            ]
+        ]
+    },
+    {
+        "id": "33f6b878d2537af6",
+        "type": "function",
+        "z": "b2e7aeebd2100c91",
+        "name": "Store chart options",
+        "func": "var chartprops_ill = flow.get('chartprops_ill')\nchartprops_ill.xaxis.min = msg.payload * 60000\n\nflow.set('chartprops_ill', chartprops_ill)\n// message continues to flow but in next node properties will be deleted\n// it will be used only as change event\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 1360,
+        "wires": [
+            [
+                "c830fb1525157cde"
+            ]
+        ]
+    },
+    {
+        "id": "7346c2c4ccbbfeac",
+        "type": "inject",
+        "z": "b2e7aeebd2100c91",
+        "name": "Resend chart format",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 380,
+        "y": 1420,
+        "wires": [
+            [
+                "c830fb1525157cde"
+            ]
+        ]
+    },
+    {
+        "id": "d317b702d093c755",
+        "type": "comment",
+        "z": "b2e7aeebd2100c91",
+        "name": "Resend - read comments !",
+        "info": "If minimum time is sent to chart, it will be absolute\nChart does not take it as time frame\nSo if change is in minutes, it is reasonable enough\nto send new min value to chart in every minute\nto hold time frame constant",
+        "x": 130,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "5c11effe9112d392",
+        "type": "link in",
+        "z": "b2e7aeebd2100c91",
+        "name": "link in 10",
+        "links": [
+            "98a48a8a348f3e47"
+        ],
+        "x": 785,
+        "y": 1300,
+        "wires": [
+            [
+                "831317f409cfe543"
+            ]
+        ]
+    },
+    {
+        "id": "76b274a720d1aea6",
+        "type": "link in",
+        "z": "b2e7aeebd2100c91",
+        "name": "link in 11",
+        "links": [
+            "527fb26a89492559"
+        ],
+        "x": 785,
+        "y": 1080,
+        "wires": [
+            [
+                "1cf884589e1fb85d"
+            ]
+        ]
+    },
+    {
+        "id": "ba207e723767c130",
+        "type": "link in",
+        "z": "b2e7aeebd2100c91",
+        "name": "link in 12",
+        "links": [
+            "1cb8a1072f38eb1d"
+        ],
+        "x": 785,
+        "y": 1180,
+        "wires": [
+            [
+                "84119a8ec7761137"
+            ]
+        ]
+    },
+    {
+        "id": "a59a85459fcea564",
+        "type": "debug",
+        "z": "b2e7aeebd2100c91",
+        "name": "debug 13",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 300,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "1f0b7c55528f5148",
+        "type": "ui_chart",
+        "z": "b2e7aeebd2100c91",
+        "name": "",
+        "group": "fafeeadb169d5d3c",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "label": "chart_temp",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "auto",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "604800",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#ec3427",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 930,
+        "y": 780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "758d4d65d64e288d",
+        "type": "cronplus",
+        "z": "b2e7aeebd2100c91",
+        "name": "Occupancy",
+        "outputField": "",
+        "timeZone": "",
+        "persistDynamic": false,
+        "commandResponseMsgOutput": "output1",
+        "outputs": 1,
+        "options": [
+            {
+                "name": "schedule1",
+                "topic": "topic1",
+                "payloadType": "default",
+                "payload": "",
+                "expressionType": "cron",
+                "expression": "0 * * * * * *",
+                "location": "",
+                "offset": "0",
+                "solarType": "all",
+                "solarEvents": "sunrise,sunset"
+            }
+        ],
+        "x": 150,
+        "y": 1760,
+        "wires": [
+            [
+                "510701ec1e08b824"
+            ]
+        ]
+    },
+    {
+        "id": "43e2e9aa2d843c68",
+        "type": "sqlite",
+        "z": "b2e7aeebd2100c91",
+        "mydb": "4b73790fdb402582",
+        "sqlquery": "prepared",
+        "sql": "SELECT * FROM `main`.`Sensors` WHERE sensor_code='concentration' AND gateway_code=$gateway_code AND node_code=$node_code ORDER BY value ASC;",
+        "name": "SELECT",
+        "x": 380,
+        "y": 1960,
+        "wires": [
+            [
+                "a86a929c04461fce"
+            ]
+        ]
+    },
+    {
+        "id": "20f77be9d700e27e",
+        "type": "debug",
+        "z": "b2e7aeebd2100c91",
+        "name": "Finished Occupancy",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 1760,
+        "wires": []
+    },
+    {
+        "id": "510701ec1e08b824",
+        "type": "sqlite",
+        "z": "b2e7aeebd2100c91",
+        "mydb": "4b73790fdb402582",
+        "sqlquery": "fixed",
+        "sql": "SELECT `gateway_code`,`node_code` FROM `main`.`Sensors` GROUP BY `gateway_code`, `node_code`;",
+        "name": "SELECT",
+        "x": 380,
+        "y": 1760,
+        "wires": [
+            [
+                "663fcfc4c30fc5af"
+            ]
+        ]
+    },
+    {
+        "id": "663fcfc4c30fc5af",
+        "type": "loop",
+        "z": "b2e7aeebd2100c91",
+        "name": "Loop all nodes",
+        "kind": "cond",
+        "count": "",
+        "initial": "1",
+        "step": "1",
+        "condition": "msg.payload.length > 0",
+        "conditionType": "js",
+        "when": "after",
+        "enumeration": "enum",
+        "enumerationType": "msg",
+        "limit": "",
+        "loopPayload": "loop-keep",
+        "finalPayload": "final-orig",
+        "x": 580,
+        "y": 1760,
+        "wires": [
+            [
+                "20f77be9d700e27e"
+            ],
+            [
+                "320ad966aa5f50e5"
+            ]
+        ]
+    },
+    {
+        "id": "320ad966aa5f50e5",
+        "type": "function",
+        "z": "b2e7aeebd2100c91",
+        "name": "Selector object",
+        "func": "msg.selector = msg.payload.pop();\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 1860,
+        "wires": [
+            [
+                "663fcfc4c30fc5af",
+                "c82be5178404ce0d"
+            ]
+        ]
+    },
+    {
+        "id": "c82be5178404ce0d",
+        "type": "function",
+        "z": "b2e7aeebd2100c91",
+        "name": "Select params",
+        "func": "msg.params = {\n    $node_code: msg.selector.node_code,\n    $gateway_code: msg.selector.gateway_code\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 160,
+        "y": 1960,
+        "wires": [
+            [
+                "43e2e9aa2d843c68"
+            ]
+        ]
+    },
+    {
+        "id": "259eb63e5bb9dabb",
+        "type": "debug",
+        "z": "b2e7aeebd2100c91",
+        "name": "Occupancy One",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 2100,
+        "wires": []
+    },
+    {
+        "id": "5563f99e08be0533",
+        "type": "comment",
+        "z": "b2e7aeebd2100c91",
+        "name": "Occupancy levels can be 'Low', 'Middle', 'Hight'",
+        "info": "",
+        "x": 260,
+        "y": 1660,
+        "wires": []
+    },
+    {
+        "id": "a86a929c04461fce",
+        "type": "function",
+        "z": "b2e7aeebd2100c91",
+        "name": "function 1",
+        "func": "msg.occupancy = {\n    \"gateway_code\": msg.selector.gateway_code,\n    \"node_code\": msg.selector.node_code\n};\n\nlet values = [];\n\nObject.values(msg.payload).forEach(val => {\n    values.push(val.value);\n});\n\n\nmsg.occupancy.values = values;\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 1960,
+        "wires": [
+            [
+                "a3bb10dcf6fbec4d"
+            ]
+        ]
+    },
+    {
+        "id": "a3bb10dcf6fbec4d",
+        "type": "sqlite",
+        "z": "b2e7aeebd2100c91",
+        "mydb": "4b73790fdb402582",
+        "sqlquery": "prepared",
+        "sql": "SELECT `value` FROM `main`.`Sensors` WHERE sensor_code='concentration' AND gateway_code=$gateway_code AND node_code=$node_code AND timestamp=(SELECT MAX(timestamp) from `main`.`Sensors` WHERE sensor_code='concentration' AND gateway_code=$gateway_code AND node_code=$node_code);",
+        "name": "SELECT",
+        "x": 760,
+        "y": 1960,
+        "wires": [
+            [
+                "417fb154eb0c72c2"
+            ]
+        ]
+    },
+    {
+        "id": "417fb154eb0c72c2",
+        "type": "function",
+        "z": "b2e7aeebd2100c91",
+        "name": "Count Occupancy",
+        "func": "let value = msg.payload[0].value;\n\nlet sortNumber;\n\nlet length = msg.occupancy.values.length;\n\nfor (let index = 0; index < length; index++) {\n    if (value == msg.occupancy.values[index]) {\n        sortNumber = index + 1;\n    }\n}\n\nif (sortNumber <= length / 3) {\n    msg.occupancy.result = 1; // Means low\n} else if (sortNumber > length / 3 && sortNumber <= length / 3 * 2) {\n    msg.occupancy.result = 2; // Means middle\n} else {\n    msg.occupancy.result = 3; // Means hight\n}\n\n// delete msg.occupancy.values;\nconsole.log(msg.occupancy);\n\nlet timestamp = Date.now();\n\nmsg.payload = {\n    \"id\": null,\n    \"node_code\": msg.occupancy.node_code, \n    \"gateway_code\": msg.occupancy.gateway_code, \n    \"sensor_code\": \"occupancy\", \n    \"value\": msg.occupancy.result, \n    \"timestamp\": timestamp\n};\n// console.log(msg.payload);\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 970,
+        "y": 1960,
+        "wires": [
+            [
+                "bb6cb641b7b950de"
+            ]
+        ]
+    },
+    {
+        "id": "bb6cb641b7b950de",
+        "type": "http request",
+        "z": "b2e7aeebd2100c91",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://localhost:1880/api/backend/insert",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "bearer",
+        "senderr": false,
+        "headers": [],
+        "x": 190,
+        "y": 2100,
+        "wires": [
+            [
+                "259eb63e5bb9dabb"
+            ]
+        ]
+    },
+    {
+        "id": "6e816e60016b6759",
+        "type": "sqlitedb",
+        "db": "/home/pinguin/backend_db",
+        "mode": "RWC"
+    },
+    {
+        "id": "4b73790fdb402582",
+        "type": "sqlitedb",
+        "db": "/home/pinguin/backend_db",
+        "mode": "RWC"
+    },
+    {
+        "id": "fafeeadb169d5d3c",
+        "type": "ui_group",
+        "name": "Temp BE",
+        "tab": "303dc40b75b42008",
+        "order": 1,
+        "disp": true,
+        "width": "7",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "aeb1e281b1147c79",
+        "type": "ui_group",
+        "name": "Pressure BE",
+        "tab": "303dc40b75b42008",
+        "order": 2,
+        "disp": true,
+        "width": "7",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "5ab86365332fbfbb",
+        "type": "ui_group",
+        "name": "Illuminance BE",
+        "tab": "303dc40b75b42008",
+        "order": 3,
+        "disp": true,
+        "width": "7",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "fc3e994ce818a4c3",
+        "type": "ui_group",
+        "name": "Altitude BE",
+        "tab": "303dc40b75b42008",
+        "order": 4,
+        "disp": true,
+        "width": "7",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "c35003402e06243d",
+        "type": "ui_group",
+        "name": "Relative-humidity BE",
+        "tab": "303dc40b75b42008",
+        "order": 5,
+        "disp": true,
+        "width": "7",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "209bbaf51b3a75c1",
+        "type": "ui_group",
+        "name": "Concentration_BE",
+        "tab": "303dc40b75b42008",
+        "order": 7,
+        "disp": true,
+        "width": "7",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "303dc40b75b42008",
+        "type": "ui_tab",
+        "name": "Backend",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
